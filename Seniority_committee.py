@@ -98,7 +98,6 @@ class Seniority_committee:
             
             :param class_num: класс, за который голосует данный член комитета: [0, 1]
             :param X_train: матрица признаков обучающей выборки
-            :param number_of_hyperplane: порядковый номер гиперплоскости: [1, 2, 3]
             :param с: вспомогательный коэффициент для выбора начального приближения
             :param cycle_range: количество итераций минимизации функции потерь
             Параметры оптимизации с помощью алгоритма Нелдера-Мида:
@@ -117,7 +116,7 @@ class Seniority_committee:
         optim_result = []
         start_time = time.time()
 
-        optim_result_new = []
+        optim_result_more_precise = []
 
         for i in range(cycle_range):
             start_w = np.array((np.random.rand(X_test.shape[1]) - 0.5)*c)
@@ -147,13 +146,13 @@ class Seniority_committee:
                     res = minimize(compute_train_loss_class_0, x0=res.x, method='Nelder-Mead', \
                              options={'disp': False, 'adaptive':True})
 
-            optim_result_new += [[res.fun, res.x]]
+            optim_result_more_precise += [[res.fun, res.x]]
 
-        optim_result_new = pd.DataFrame(optim_result_new)
-        optim_result = optim_result.sort_values(0).head(1)
-        hyperplane_coefficients = optim_result[1].values[0]
+        optim_result_more_precise = pd.DataFrame(optim_result_more_precise)
+        optim_result_more_precise = optim_result_more_precise.sort_values(0).head(1)
+        hyperplane_coefficients = optim_result_more_precise[1].values[0]
         print('Time taken for optimization: {0}'.format(time.time() - start_time))
-        print('The minimum of the loss function: {0}'.format(optim_result[0].values[0]))
+        print('The minimum of the loss function: {0}'.format(optim_result_more_precise[0].values[0]))
 
 #             self.weights_hp_3 = hyperplane_coefficients
         return hyperplane_coefficients
