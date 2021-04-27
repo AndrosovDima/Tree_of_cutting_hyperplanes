@@ -1,5 +1,5 @@
 import numpy as np
-%matplotlib inline
+# %matplotlib inline
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
