@@ -8,7 +8,7 @@ from scipy.optimize import minimize, differential_evolution
 from sklearn.metrics import roc_auc_score
 import tensorflow as tf
 
-class Seniority_committee:
+class TCH:
     """
         ML Algo based on the seniority committee method
     """
